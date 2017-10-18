@@ -149,7 +149,7 @@ GO
 
 ALTER TABLE tblAppliance_Truck
 ADD CONSTRAINT FK_ApplianceType
-FOREIGN KEY (ApplianceTypeID)
+FOREIGN KEY (ApplianceTypeID)sfd
 REFERENCES tblApplianceType (ApplianceTypeID)
 GO
 
