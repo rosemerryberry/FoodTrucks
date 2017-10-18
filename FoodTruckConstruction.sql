@@ -1,9 +1,9 @@
 /* Food Trucks database construction */
 
-CREATE DATABASE FoodTrucks
+CREATE DATABASE FoodTrucks1
 GO
 
-USE FoodTrucks
+USE FoodTrucks1
 GO
 
 /* creating tables */
@@ -11,7 +11,6 @@ GO
 CREATE TABLE tblTruck (
 	TruckID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	CompanyID INT NOT NULL,
-	LocationID INT NOT NULL,
 	MenuID INT NOT NULL
 )
 GO
@@ -39,14 +38,14 @@ CREATE TABLE tblTruck_Location(
 
 CREATE TABLE tblLocation(
 	LocationID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	Location_NameID INT NOT NULL,
 	StreetAddress VARCHAR(50) NOT NULL,
-	Zip INT NOT NULL,
-	LocationName VARCHAR(50) NOT NULL
+	Zip INT NOT NULL
 )
 GO
 
 CREATE TABLE tblLocation_Name(
-	LocationNameID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	Location_NameID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	LocationDescription VARCHAR(100) NOT NULL
 )
 GO
@@ -131,6 +130,103 @@ CREATE TABLE tblPosition(
 	PositionID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	PositionName VARCHAR(50) NOT NULL,
 	PositionDescription VARCHAR(100) NOT NULL
-)GO
+)
+GO
 
 /* adding FKs */
+
+ALTER TABLE tblTruck
+ADD CONSTRAINT FK_CompanyID
+FOREIGN KEY (CompanyID)
+REFERENCES tblCompany (CompanyID)
+GO
+
+ALTER TABLE tblTruck
+ADD CONSTRAINT FK_MenuID
+FOREIGN KEY (MenuID)
+REFERENCES tblMenu (MenuID)
+GO
+
+ALTER TABLE tblAppliance_Truck
+ADD CONSTRAINT FK_ApplianceType
+FOREIGN KEY (ApplianceTypeID)
+REFERENCES tblApplianceType (ApplianceTypeID)
+GO
+
+ALTER TABLE tblAppliance_Truck
+ADD CONSTRAINT FK_TruckID
+FOREIGN KEY (TruckID)
+REFERENCES tblTruck (TruckID)
+GO
+
+ALTER TABLE tblTruck_Location
+ADD CONSTRAINT FK_Truck
+FOREIGN KEY (TruckID)
+REFERENCES tblTruck (TruckID)
+GO
+
+ALTER TABLE tblLocation
+ADD CONSTRAINT FK_Location_Name
+FOREIGN KEY (Location_NameID)
+REFERENCES tblLocation_Name (Location_NameID)
+GO
+
+ALTER TABLE tblTruck_Location
+ADD CONSTRAINT FK_Location
+FOREIGN KEY (LocationID)
+REFERENCES tblLocation (LocationID)
+GO
+
+ALTER TABLE tblMenu
+ADD CONSTRAINT FK_Menu_Type
+FOREIGN KEY (Menu_TypeID)
+REFERENCES tblMenu_Type (Menu_TypeID)
+GO
+
+ALTER TABLE tblMenuItem
+ADD CONSTRAINT FK_Menu
+FOREIGN KEY (MenuID)
+REFERENCES tblMenu (MenuID)
+GO
+
+ALTER TABLE tblMenuItem_Ingredient
+ADD CONSTRAINT FK_MenuItem
+FOREIGN KEY (MenuItemID)
+REFERENCES tblMenuItem (MenuItemID)
+GO
+
+ALTER TABLE tblMenuItem_Ingredient
+ADD CONSTRAINT FK_Ingredient
+FOREIGN KEY (IngredientID)
+REFERENCES tblIngredient (IngredientID)
+GO
+
+ALTER TABLE tblIngredient
+ADD CONSTRAINT FK_Supplier
+FOREIGN KEY (SupplierID)
+REFERENCES tblSupplier (SupplierID)
+GO
+
+ALTER TABLE tblOrder
+ADD CONSTRAINT FK_Menu1
+FOREIGN KEY (MenuID)
+REFERENCES tblMenu (MenuID)
+GO
+
+ALTER TABLE tblOrder
+ADD CONSTRAINT FK_Customer
+FOREIGN KEY (CustomerID)
+REFERENCES tblCustomer (CustomerID)
+GO
+
+ALTER TABLE tblEmployee
+ADD CONSTRAINT FK_Truck1
+FOREIGN KEY (TruckID)
+REFERENCES tblTruck (TruckID)
+GO
+
+ALTER TABLE tblEmployee
+ADD CONSTRAINT FK_Position
+FOREIGN KEY (PositionID)
+REFERENCES tblPosition (PositionID)
+GO
