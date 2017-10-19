@@ -28,27 +28,3 @@ SET @EmployeeID = (SELECT EmployeeID FROM tblEmployee WHERE FName = @EmployeeFNa
             AND LName = @EmployeeLName AND DOB = @EmployeeDOB)
 END
 
-
-/*********************************Populating Position/sproc for GetPositionID*****************************************/
-use FoodTrucks1
-
-create procedure PopulatePosition
-	@PositionName varchar(50),
-	@PositionDescription varchar(100)
-as
-
-declare @MenuID int
-
-exec GetMenuID
-	@MenuName = @MenuName,
-	@MenuID = @MenuID OUTPUT
-
-begin tran t1
-
-insert into tblMenuItem (MenuID, MenuItemName) values (@MenuID, @MenuItemName)
-
-IF @@ERROR <> 0
-        ROLLBACK TRAN t1
-ELSE
-        COMMIT TRAN t1
-go
