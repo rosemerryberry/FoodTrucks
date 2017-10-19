@@ -137,11 +137,4 @@ EXEC [usp_AddNewLocation]
 @zip = 98112
 
 
-INSERT INTO tblTruck(CompanyID, MenuID) VALUES (1, 2)
-INSERT INTO tblTruck(CompanyID, MenuID) VALUES (2, 2)
-INSERT INTO tblTruck(CompanyID, MenuID) VALUES (3, 2)
-INSERT INTO tblTruck(CompanyID, MenuID) VALUES (1, 4)
-INSERT INTO tblTruck(CompanyID, MenuID) VALUES (2, 5)
-INSERT INTO tblTruck(CompanyID, MenuID) VALUES (5, 3)
-INSERT INTO tblTruck(CompanyID, MenuID) VALUES (1, 5)
 
