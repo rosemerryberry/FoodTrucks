@@ -11,7 +11,9 @@ VALUES
 ('Bookkeeper','Manages all payments'),
 ('Promoter','Encourages people to eat at truck')
 
+/************************inserting into Company**************************************/
 
+use FoodTrucks1
 GO
 
 INSERT INTO tblCompany (CompanyName, CompanyDescription)
@@ -35,5 +37,17 @@ VALUES
 ('Digital Seafood','Fish and seafood'),
 ('Android Oreo','Desserts')
 
+/************************inserting into EmployeeTEMP**************************************/
 
-GO
+use FoodTrucks1
+
+CREATE TABLE tblEmployeeTEMP(
+	EMPID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
+	FName VARCHAR(50) NOT NULL,
+	LName VARCHAR(100) NOT NULL,
+    DOB date
+)
+INSERT INTO tblEmployeeTEMP (FName, LName, DOB)
+SELECT TOP 100000 CustomerFName, CustomerLName, DateOfBirth FROM CUSTOMER_BUILD.[tblCUSTOMER]
+
+
