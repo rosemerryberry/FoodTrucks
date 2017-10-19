@@ -93,6 +93,10 @@ CREATE TABLE tblIngredient(
 )
 GO
 
+ALTER TABLE tblIngredient
+	ADD IngredientName VARCHAR(50) NOT NULL
+go
+
 CREATE TABLE tblSupplier(
 	SupplierID INT IDENTITY(1,1) PRIMARY KEY NOT NULL,
 	SupplierName VARCHAR(50) NOT NULL,
