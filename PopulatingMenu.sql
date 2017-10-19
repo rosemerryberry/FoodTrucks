@@ -190,9 +190,9 @@ BEGIN
 begin tran t1
 
 insert into [dbo].[tblOrder]
-(MenuID, CustomerID, OrderID, OrderDate)
+(MenuID, CustomerID, OrderDate)
 values
-(@MenuID, @CustomerID, @OrderID, @OrderDate)
+(@MenuID, @CustomerID, @OrderDate)
 
 IF @@ERROR <> 0
 
@@ -326,3 +326,100 @@ exec PopulateIngredient
 	@IngredientDescription = 'tiny bacterias',
 	@SupplierName = 'Kroger'
 go
+
+/*********************************Populating MenuItem/sproc for GetMenuItemID*****************************************/
+create procedure PopulateMenuItem
+	@MenuItemName varchar(50),
+	@MenuName varchar(50)
+as
+
+declare @MenuID int
+
+exec GetMenuID
+	@MenuName = @MenuName,
+	@MenuID = @MenuID OUTPUT
+
+begin tran t1
+
+insert into tblMenuItem (MenuID, MenuItemName) values (@MenuID, @MenuItemName)
+
+IF @@ERROR <> 0
+        ROLLBACK TRAN t1
+ELSE
+        COMMIT TRAN t1
+go
+
+exec PopulateMenuItem
+	@MenuItemName = 'Curry',
+	@MenuName = 'I Can Show You The World'
+go
+
+exec PopulateMenuItem
+	@MenuItemName = 'Naan',
+	@MenuName = 'I Can Show You The World'
+go
+
+exec PopulateMenuItem
+	@MenuItemName = 'Chai',
+	@MenuName = 'I Can Show You The World'
+go
+
+exec PopulateMenuItem
+	@MenuItemName = 'Pizza',
+	@MenuName = 'Bread is the Devil'
+go
+
+exec PopulateMenuItem
+	@MenuItemName = 'Pasta',
+	@MenuName = 'Bread is the Devil'
+go
+
+exec PopulateMenuItem
+	@MenuItemName = 'Beer',
+	@MenuName = 'Bread is the Devil'
+go
+
+exec PopulateMenuItem
+	@MenuItemName = 'Gyro',
+	@MenuName = 'I Love Olives'
+go
+
+exec PopulateMenuItem
+	@MenuItemName = 'Baclava',
+	@MenuName = 'I Love Olives'
+go
+
+exec PopulateMenuItem
+	@MenuItemName = 'Spanikopita',
+	@MenuName = 'I Love Olives'
+go
+
+exec PopulateMenuItem
+	@MenuItemName = 'Hummus',
+	@MenuName = 'Vegemites'
+go
+
+exec PopulateMenuItem
+	@MenuItemName = 'Soup',
+	@MenuName = 'Vegemites'
+go
+
+exec PopulateMenuItem
+	@MenuItemName = 'Panini',
+	@MenuName = 'Vegemites'
+go
+
+exec PopulateMenuItem
+	@MenuItemName = 'Spicy Wings',
+	@MenuName = 'Wings'
+go
+
+create procedure GetMenuItemID
+	@MenuItemName varchar(50),
+	@MenuItemID int OUTPUT
+as
+begin
+	select MenuItemID = @MenuItemID
+	from tblMenuItem
+	where MenuItemName = @MenuItemName
+end
