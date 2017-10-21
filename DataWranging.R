@@ -33,4 +33,8 @@ korean.bbq.menu.items <- c("hambao", "chicken", "pork")
 salad.menu.items <- c("kale", "beans", "cesear")
 american.menu.items <- c("hot dog", "hamburger", "milkshake")
 
+################################################################################
+data <- read.xlsx('./CustomerOrderMenu.xlsx', stringsAsFactors = FALSE, 1)
+library(xlsx)
+
 

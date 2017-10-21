@@ -171,11 +171,11 @@ WHILE @RUN > 0
 BEGIN
 
   SET @OrderID = (SELECT Min(CustomerOrderID) FROM WorkingCustomerDataPK) 
-  set @MenuName = (Select MenuName from WorkingCustomerDataPK where CustomerOrderID = @OrderID)
-  set @OrderDate = (select OrderDate from WorkingCustomerDataPK where OrderDate = @OrderDate)
-  set @FName = (select FName from WorkingCustomerDataPK where FName = @FName)
-  set @LName = (select LName from WorkingCustomerDataPK where LName = @LName)
-  set @DOB = (select DOB from WorkingCustomerDataPK where DOB = @DOB)
+  set @MenuName = (Select MenuName from WorkingCustomerDataPK where @OrderID = CustomerOrderID)
+  set @OrderDate = (select OrderDate from WorkingCustomerDataPK where  @OrderID = CustomerOrderID)
+  set @FName = (select FName from WorkingCustomerDataPK where  @OrderID = CustomerOrderID)
+  set @LName = (select LName from WorkingCustomerDataPK where  @OrderID = CustomerOrderID)
+  set @DOB = (select DOB from WorkingCustomerDataPK where  @OrderID = CustomerOrderID)
 
   exec [GetMenuID]
 	@MenuName = @MenuName,
