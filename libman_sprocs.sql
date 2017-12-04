@@ -107,3 +107,11 @@ BEGIN
 SELECT IngredientID = @IngredientID
 FROM tblIngredient
 WHERE SupplierID = @SupplierID AND IngredientName = @IngredientName AND IngredientDescription = @IngredientDescription
+
+
+
+
+-- above has been edited in sqlserver - not all accurate procedures
+
+
+
