@@ -30,3 +30,12 @@ if exists (
 ) set @ret = 1
 return @ret
 end
+
+ALTER TABLE tblLocation
+ADD CONSTRAINT locationCheck
+CHECK (dbo.fn_seattleTruckLocation() = 0)
+
+
+ALTER TABLE tblOrder
+ADD CONSTRAINT maxOrders
+CHECK (dbo.fn_customerOrderLimit() = 0)
