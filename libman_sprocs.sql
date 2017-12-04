@@ -46,6 +46,8 @@ CREATE PROCEDURE usp_AddMenuItemIngredient
 @MenuItemName varchar(35),
 @IngredientName varchar(35),
 @IngredientDescription varchar(70),
+@SupplierName varchar(75),
+@SupplierDescription varchar(70),
 @Quantity INT,
 @Calories INT
 
@@ -54,10 +56,12 @@ DECLARE @IngredientID INT, @MenuItemID INT
 
 EXEC [uspGetIngredientID]
 @IngredientDescription = @IngredientDescription,
+@SupplierName = @SupplierName,
+@SupplierDescription = @SupplierDescription,
 @IngredientName = @IngredientName,
 @IngredientID = @IngredientID OUTPUT
 
-EXEC [uspGetIngredientID]
+EXEC [uspGetMenuItemID]
 @MenuItemName = @MenuItemName,
 @MenuItemID = @MenuItemID OUTPUT
 
@@ -92,6 +96,12 @@ EXEC [uspGetSupplierID]
 @SupplierDescription = @SupplierDescription,
 @SupplierName = @SupplierName
 @SupplierID = @SupplierID OUTPUT
+
+IF @SupplierID IS NULL
+BEGIN
+PRINT '@SupplierID IS NULL and will fail on insert statement; process terminated'
+RAISERROR ('SupplierID variable @SupplierID cannot be NULL',11,1)
+RETURN END
 
 BEGIN
 SELECT IngredientID = @IngredientID
