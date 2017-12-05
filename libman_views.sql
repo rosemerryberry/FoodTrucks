@@ -8,7 +8,7 @@ CREATE VIEW [dbo].[truckMenu] as (
 
 -- What are the age demographics for each truck? 
 CREATE VIEW [dbo].[truckDemographics] as (
-    SELECT (CASE 
+    SELECT m.MenuName, (CASE 
         WHEN c.DOB < (GetDate() - (365.25 * 12))
         THEN 'Child'
         WHEN c.DOB BETWEEN (GetDate() - (365.25 * 12)) AND (GetDate() - (365.25 * 19))
@@ -21,8 +21,8 @@ CREATE VIEW [dbo].[truckDemographics] as (
         THEN 'Senior'
         ELSE 'Unknown'
         END) AS Generation
-    FROM tblTruck t
-    JOIN tblMenu m ON m.MenuID = t.MenuID
+    FROM tblMenu m 
     JOIN tblOrder o ON o.MenuID = m.MenuID
     JOIN tblCustomer c ON c.CustomerID = o.CustomerID
+    GROUP BY t.MenuID
 )
